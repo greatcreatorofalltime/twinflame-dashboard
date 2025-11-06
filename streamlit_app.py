@@ -376,7 +376,7 @@ texts = {
         "spread_meanings": "牌陣意義",
         "spread_single": "單張牌：快速指引",
         "spread_three": "三張牌：過去、現在、未來",
-        "spread_celtic": "凱爾特十字：深度靈魂洞察",
+        "spread_celtic": "凱爾特：深度靈魂洞察",
         "visit_shop": "訪問我們的商店",
         "shop_text": "探索我們商店中的靈性日記、雙生火焰指南和神聖工具。",
         "enter_shop": "進入宇宙日記",
@@ -891,7 +891,7 @@ def create_download_content(question, cards, spread_type, language, reflection, 
         content += f"牌陣類型: {spread_type}\n"
         content += "=" * 50 + "\n\n"
         
-        if spread_type == "凱爾特十字" and positions:
+        if spread_type == "凱爾特" and positions:
             for i, (position, card) in enumerate(zip(positions, cards)):
                 content += f"{position}\n"
                 content += f"神諭卡: {card['emoji']} {card['text']}\n"
