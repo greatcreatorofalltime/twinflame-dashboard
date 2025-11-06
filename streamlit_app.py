@@ -376,7 +376,7 @@ texts = {
         "spread_meanings": "牌陣意義",
         "spread_single": "單張牌：快速指引",
         "spread_three": "三張牌：過去、現在、未來",
-        "spread_celtic": "凱爾特：深度靈魂洞察",
+        "spread_celtic": "凱爾特十字：深度靈魂洞察",
         "visit_shop": "訪問我們的商店",
         "shop_text": "探索我們商店中的靈性日記、雙生火焰指南和神聖工具。",
         "enter_shop": "進入宇宙日記",
@@ -891,7 +891,7 @@ def create_download_content(question, cards, spread_type, language, reflection, 
         content += f"牌陣類型: {spread_type}\n"
         content += "=" * 50 + "\n\n"
         
-        if spread_type == "凱爾特" and positions:
+        if spread_type == "凱爾特十字" and positions:
             for i, (position, card) in enumerate(zip(positions, cards)):
                 content += f"{position}\n"
                 content += f"神諭卡: {card['emoji']} {card['text']}\n"
@@ -969,6 +969,7 @@ def display_card_with_interpretation(card, language, position=None):
     interpretation = get_card_interpretation(card['text'], language)
     t = texts[language]
     
+    # 顯示卡片
     st.markdown(f"""
     <div class="oracle-card">
         <div class="card-image">{card['emoji']}</div>
@@ -977,18 +978,21 @@ def display_card_with_interpretation(card, language, position=None):
     </div>
     """, unsafe_allow_html=True)
     
+    # 顯示解讀 - 使用Streamlit原生組件而不是HTML
     if interpretation:
-        st.markdown(f"""
+        st.markdown("""
         <div class="card-interpretation">
-            <div class="interpretation-title">📖 {t['card_meaning']}</div>
-            <div class="interpretation-content">{interpretation['meaning']}</div>
-            
-            <div class="interpretation-title" style="margin-top: 15px;">💫 {t['soul_guidance']}</div>
-            <div class="interpretation-content">{interpretation['advice']}</div>
-            
-            <div class="category-tag">{t['category']}: {interpretation['category']}</div>
-        </div>
         """, unsafe_allow_html=True)
+        
+        st.markdown(f"**📖 {t['card_meaning']}**")
+        st.write(interpretation['meaning'])
+        
+        st.markdown(f"**💫 {t['soul_guidance']}**")
+        st.write(interpretation['advice'])
+        
+        st.markdown(f"**🏷️ {t['category']}**: {interpretation['category']}")
+        
+        st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
     # Initialize session state for language
@@ -1078,7 +1082,7 @@ def main():
     # Left column - Question and spread selection
     with left_col:
         # Question input
-        st.markdown(f"### ❤️‍🔥 {t['sacred_question']}")
+        st.markdown(f"### 👩🏻‍❤️‍👨🏻 {t['sacred_question']}")
         question = st.text_area(
             "",
             placeholder=t["question_placeholder"],
